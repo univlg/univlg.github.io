@@ -1,0 +1,7 @@
+# *.pdf
+*.mp4
+*.md
+ignore/
+.DS_Store
+old_index.html
+*.pdf

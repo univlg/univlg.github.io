@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="UniVLG: Unifying 2D and 3D Vision-Language Understanding">
+  <meta property="og:title" content="UniVLG: Unifying 2D and 3D Vision-Language Understanding"/>
+  <meta property="og:description" content="UniVLG is a unified architecture for 2D and 3D vision-language understanding that bridges the gap between existing 2D-centric models and the rich 3D sensory data available in embodied systems."/>
+  <meta property="og:url" content="https://yourwebsite.com/univlg"/>
+  <meta property="og:image" content="static/images/teaser_ver_4.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+  <meta name="twitter:title" content="UniVLG: Unifying 2D and 3D Vision-Language Understanding">
+  <meta name="twitter:description" content="UniVLG is a unified architecture for 2D and 3D vision-language understanding that bridges the gap between existing 2D-centric models and the rich 3D sensory data available in embodied systems.">
+  <meta name="twitter:image" content="static/images/teaser_ver_4.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="keywords" content="UniVLG, 2D-3D, Vision-Language, Embodied AI, 3D Vision, 2D Vision, Grounding, Question Answering, Segmentation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>UniVLG: Unifying 2D and 3D Vision-Language Understanding</title>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <style>
+    .container p {
+      padding-top: 1rem;
+    }
+    /* Add new custom column class */
+    .is-five-sixths {
+      flex: none;
+      width: 87.5%;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    a.anchor-link {
+      margin-left: 0.15em;
+      color: inherit;
+      text-decoration: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+      font-size: 0.6em;
+      position: relative;
+      top: -0.15em;
+      cursor: pointer;
+    }
+
+    /* Show the anchor link on hover */
+    h2[id]:hover a.anchor-link {
+      opacity: 1;
+    }
+
+    .progressive-image-container {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progressive-image {
+      opacity: 0;
+      transition: opacity 0.3s ease-in;
+    }
+
+    .progressive-image.loaded {
+      opacity: 1;
+    }
+
+    .image-placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3273dc;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+
+  <script src="https://ajax.googleapis.com/ajax.libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">UniVLG: Unifying 2D and 3D Vision-Language Understanding</h1>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                    Ayush Jain<sup>*</sup>,</span>
+                    <span class="author-block">
+                      Alexander Swerdlow<sup>*</sup>,</span>
+                    <span class="author-block">
+                        Yuzhou Wang,</span>
+                    <span class="author-block">
+                      Alexander Sax,</span>
+                    <span class="author-block">
+                      Franziska Meier,
+              </span>
+                    <span class="author-block">
+                         Katerina Fragkiadaki,
+              </span>
+
+
+                <span class="eql-cntrb"><small><br><sup>*</sup>Equal Contribution</small></span>
+              </div>
+
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                      <span class="link-block">
+                        <a href="static/files/paper.pdf" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+
+                    <!-- <span class="link-block">
+                      <a href="static/pdfs/supplementary_material.pdf" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>Supplementary</span>
+                    </a>
+                  </span> -->
+
+                  <!-- <span class="link-block">
+                    <a href="https://github.com/your_repo_here" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>  -->
+
+                <!-- <span class="link-block">
+                  <a href="https://arxiv.org/abs/your_paper_id" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span> -->
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Teaser Image -->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <!-- <img src="static/images/joint_inpaint.webp" alt="Joint Inpainting"> -->
+        <picture>
+          <source srcset="static/images/teaser_ver_4.png" type="image/png">
+          <img src="static/images/teaser_ver_4.webp" alt="UniVLG Teaser Figure">
+        </picture>
+        <h2 class="subtitle has-text-centered">
+        <div style="margin-top: 10px;">
+          UniVLG achieves state-of-the-art performance in 3D vision-language understanding by unifying 2D and 3D visual processing and leveraging 2D pre-training.
+        </div>
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- Abstract -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 id="abstract" class="title is-3">Abstract
+            <a href="#abstract" class="anchor-link">
+              <i class="fas fa-link"></i>
+            </a>
+          </h2>
+          <div class="content has-text-justified">
+            <p>
+              Progress in 3D vision-language learning has been hindered by the scarcity of large-scale 3D datasets. We introduce UniVLG, a unified architecture for 2D and 3D vision-language understanding that bridges the gap between existing 2D-centric models and the rich 3D sensory data available in embodied systems. Our approach initializes most model weights from pre-trained 2D models and trains on both 2D and 3D vision-language data. We propose a novel language-conditioned  mask decoder shared across 2D and 3D modalities to ground objects effectively in both RGB and RGB-D images, outperforming box-based approaches. To further reduce the domain gap between 2D and 3D, we incorporate 2D-to-3D lifting strategies, enabling UniVLG to utilize 2D data to enhance 3D performance. With these innovations, our model achieves state-of-the-art performance across multiple 3D vision-language grounding tasks, demonstrating the potential of transferring advances from 2D vision-language learning to the data-constrained 3D domain. Furthermore, co-training on both 2D and 3D data enhances performance across modalities without sacrificing 2D capabilities. By removing the reliance on 3D mesh reconstruction and ground-truth object proposals, UniVLG sets a new standard for realistic, embodied-aligned evaluation.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero is-small pt-6 pb-3">
+    <div class="hero-body">
+      <div class="container">
+        <h2 id="architecture" class="title is-3 has-text-centered">
+          UniVLG Architecture
+          <a href="#architecture" class="anchor-link">
+            <i class="fas fa-link"></i>
+          </a>
+        </h2>
+        <div class="columns is-centered" style="padding-top: 20px;">
+          <div class="column is-four-fifths has-text-centered">
+            <picture>
+              <source srcset="static/images/RODIN_Architecture_3.png" type="image/png">
+              <img src="static/images/RODIN_Architecture_3.webp" alt="UniVLG Architecture">
+            </picture>
+            <p style="padding-bottom: 30px;">UniVLG is a vision language transformer that accepts a language utterance and either (1) a sequence of posed RGB-D images or (2) a monocular RGB image, lifted to 3D (2D to 3D Projection). UniVLG fuses information across vision and language to predict 3D object segments or generate answers. It uses a ViT backbone followed by 3D relative attentions to produce a set of 3D feature tokens. The proposed decoder then iteratively updates a set of learnable queries as well as the 3D feature tokens though token - language - query attentions to decode object segments and match them to noun phrases in the input referential utterance. Masks are decoded through a dot-product between 3D feature tokens and learnable queries. A text decoder predicts answers for the input questions by conditioning on the set of updated object queries.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero is-light is-small pt-6 pb-3" style="margin-top: -3.0rem;">
+    <div class="hero-body">
+      <div class="container">
+        <h2 id="architecture" class="title is-3 has-text-centered">
+          Referential Grounding Results
+          <a href="#architecture" class="anchor-link">
+            <i class="fas fa-link"></i>
+          </a>
+        </h2>
+        <div class="columns is-centered" style="padding-top: 20px;">
+          <div class="column is-four-fifths has-text-centered">
+            <picture>
+              <!-- <source srcset="static/images/RODIN_Architecture_3.png" type="image/png"> -->
+              <img src="static/images/table_1.png" alt="UniVLG Architecture">
+            </picture>
+            <p style="padding-bottom: 30px;">Results on 3D language grounding in 3D mesh and sensor point clouds (PC). We evaluate top-1 accuracy on the official validation set with assuming ground-truth (GT) or without assuming ground-truth proposals (Det).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- <section class="hero is-small pt-5 pb-6">
+    <div class="hero-body">
+      <div class="container">
+        <h2 id="results" class="title is-3 has-text-centered">
+          Key Results
+          <a href="#results" class="anchor-link">
+            <i class="fas fa-link"></i>
+          </a>
+        </h2> -->
+
+        <!-- <div class="columns is-centered">
+          <div class="column is-full has-text-centered">
+            <h3 class="subtitle">State-of-the-art 3D Referential Grounding</h3>
+            <div class="table-container" style="overflow-x: auto; margin-bottom: 20px;">
+              <table class="table is-bordered is-striped is-narrow is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>Backbone</th>
+                    <th>Input PC</th>
+                    <th>GT Box</th>
+                    <th>SR3D@0.25</th>
+                    <th>SR3D@0.5</th>
+                    <th>SR3D@0.75</th>
+                    <th>NR3D@0.25</th>
+                    <th>NR3D@0.5</th>
+                    <th>NR3D@0.75</th>
+                    <th>ScanRefer@0.25</th>
+                    <th>ScanRefer@0.5</th>
+                    <th>ScanRefer@0.75</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>3D-VisTA</td>
+                    <td>PointNet++</td>
+                    <td>Mesh</td>
+                    <td>Yes</td>
+                    <td>71.8</td>
+                    <td>58.7</td>
+                    <td>44.8</td>
+                    <td>69.2</td>
+                    <td>55.1</td>
+                    <td>41.7</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>PQ3D</td>
+                    <td>PVCNN++</td>
+                    <td>Mesh</td>
+                    <td>Yes</td>
+                    <td>76.1</td>
+                    <td>65.2</td>
+                    <td>52.9</td>
+                    <td>73.2</td>
+                    <td>61.7</td>
+                    <td>49.1</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>LLaVA-3D</td>
+                    <td>CLIP-ViT-B</td>
+                    <td>Mesh</td>
+                    <td>Yes</td>
+                    <td>57.9</td>
+                    <td>44.9</td>
+                    <td>30.4</td>
+                    <td>54.3</td>
+                    <td>40.3</td>
+                    <td>26.2</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>BUTD-DETR</td>
+                    <td>DGCNN</td>
+                    <td>Mesh</td>
+                    <td>No</td>
+                    <td>64.2</td>
+                    <td>50.8</td>
+                    <td>35.2</td>
+                    <td>59.1</td>
+                    <td>45.3</td>
+                    <td>30.4</td>
+                    <td>51.4</td>
+                    <td>37.8</td>
+                    <td>24.4</td>
+                  </tr>
+                  <tr>
+                    <td>BUTD-DETR (Sensor PC)</td>
+                    <td>DGCNN</td>
+                    <td>Sensor</td>
+                    <td>No</td>
+                    <td>58.2</td>
+                    <td>43.9</td>
+                    <td>29.8</td>
+                    <td>52.3</td>
+                    <td>38.7</td>
+                    <td>25.9</td>
+                    <td>45.3</td>
+                    <td>33.1</td>
+                    <td>21.4</td>
+                  </tr>
+                  <tr>
+                    <td>3D-VisTA (Det Box)</td>
+                    <td>PointNet++</td>
+                    <td>Mesh</td>
+                    <td>No</td>
+                    <td>54.2</td>
+                    <td>41.1</td>
+                    <td>27.8</td>
+                    <td>50.3</td>
+                    <td>37.3</td>
+                    <td>24.9</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>3D-VisTA (Sensor PC, Det Box)</td>
+                    <td>PointNet++</td>
+                    <td>Sensor</td>
+                    <td>No</td>
+                    <td>48.3</td>
+                    <td>36.9</td>
+                    <td>24.7</td>
+                    <td>44.9</td>
+                    <td>33.8</td>
+                    <td>22.6</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>ODIN (Sensor PC, Det Box)</td>
+                    <td>Swin-B</td>
+                    <td>Sensor</td>
+                    <td>No</td>
+                    <td>55.1</td>
+                    <td>42.3</td>
+                    <td>28.9</td>
+                    <td>51.2</td>
+                    <td>38.1</td>
+                    <td>25.4</td>
+                    <td>42.3</td>
+                    <td>30.7</td>
+                    <td>19.6</td>
+                  </tr>
+                  <tr style="background-color:#f0f0f0">
+                    <td>UniVLG-3D-only (Sensor PC, Det Box)</td>
+                    <td>ViT-B</td>
+                    <td>Sensor</td>
+                    <td>No</td>
+                    <td><b>70.2</b></td>
+                    <td><b>56.8</b></td>
+                    <td><b>42.1</b></td>
+                    <td><b>66.3</b></td>
+                    <td><b>53.1</b></td>
+                    <td><b>39.6</b></td>
+                    <td><b>57.3</b></td>
+                    <td><b>43.2</b></td>
+                    <td><b>29.1</b></td>
+                  </tr>
+                  <tr style="background-color:#f0f0f0">
+                    <td>UniVLG (Sensor PC, Det Box)</td>
+                    <td>ViT-B</td>
+                    <td>Sensor</td>
+                    <td>No</td>
+                    <td><b>71.5</b></td>
+                    <td><b>58.1</b></td>
+                    <td><b>43.2</b></td>
+                    <td><b>67.5</b></td>
+                    <td><b>54.2</b></td>
+                    <td><b>40.5</b></td>
+                    <td><b>58.2</b></td>
+                    <td><b>44.0</b></td>
+                    <td><b>29.8</b></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p><b>Table 1</b>: Performance on established 3D referential grounding benchmarks (SR3D, NR3D, ScanRefer) in the more realistic setting without ground-truth bounding boxes (Det Box) and with sensor point clouds (Sensor PC). <b>UniVLG outperforms prior methods by a significant margin.</b></p>
+          </div>
+        </div> -->
+
+        <!-- <div class="columns is-centered">
+          <div class="column is-full has-text-centered">
+            <h3 class="subtitle">Out-of-Domain 3D Referential Grounding Performance</h3>
+            <div class="table-container" style="overflow-x: auto; margin-bottom: 20px;">
+              <table class="table is-bordered is-striped is-narrow is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>Backbone</th>
+                    <th>Input PC</th>
+                    <th>GT Box</th>
+                    <th>LX3D (ScanNet)</th>
+                    <th>LX3D (ScanNet++)</th>
+                    <th>LX3D (ARKitScenes)</th>
+                    <th>LX3D (HM3D)</th>
+                    <th>LX3D (Avg.)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>BUTD-DETR (Sensor PC)</td>
+                    <td>DGCNN</td>
+                    <td>Sensor</td>
+                    <td>No</td>
+                    <td>42.3</td>
+                    <td>39.8</td>
+                    <td>35.7</td>
+                    <td>31.2</td>
+                    <td>37.3</td>
+                  </tr>
+                  <tr>
+                    <td>3D-VisTA (Sensor PC, Det Box)</td>
+                    <td>PointNet++</td>
+                    <td>Sensor</td>
+                    <td>No</td>
+                    <td>39.1</td>
+                    <td>36.2</td>
+                    <td>32.1</td>
+                    <td>28.5</td>
+                    <td>34.0</td>
+                  </tr>
+                  <tr>
+                    <td>ODIN (Sensor PC, Det Box)</td>
+                    <td>Swin-B</td>
+                    <td>Sensor</td>
+                    <td>No</td>
+                    <td>40.2</td>
+                    <td>38.3</td>
+                    <td>34.9</td>
+                    <td>30.1</td>
+                    <td>35.9</td>
+                  </tr>
+                  <tr style="background-color:#f0f0f0">
+                    <td>UniVLG-3D-only (Sensor PC, Det Box)</td>
+                    <td>ViT-B</td>
+                    <td>Sensor</td>
+                    <td>No</td>
+                    <td><b>53.2</b></td>
+                    <td><b>50.1</b></td>
+                    <td><b>46.3</b></td>
+                    <td><b>42.5</b></td>
+                    <td><b>48.0</b></td>
+                  </tr>
+                  <tr style="background-color:#f0f0f0">
+                    <td>UniVLG (Sensor PC, Det Box)</td>
+                    <td>ViT-B</td>
+                    <td>Sensor</td>
+                    <td>No</td>
+                    <td><b>54.5</b></td>
+                    <td><b>51.3</b></td>
+                    <td><b>47.2</b></td>
+                    <td><b>43.1</b></td>
+                    <td><b>49.0</b></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p><b>Table 2</b>: Out-of-domain 3D referential grounding performance on LX3D dataset. <b>UniVLG generalizes well to new scenes and datasets.</b></p>
+          </div>
+        </div>
+
+        <div class="columns is-centered">
+          <div class="column is-full has-text-centered">
+            <h3 class="subtitle">State-of-the-art 3D Question Answering</h3>
+            <div class="table-container" style="overflow-x: auto; margin-bottom: 20px;">
+              <table class="table is-bordered is-striped is-narrow is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>Backbone</th>
+                    <th>Input PC</th>
+                    <th>ScanQA EM@1</th>
+                    <th>SQA3D EM@1</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>3D-VisTA</td>
+                    <td>PointNet++</td>
+                    <td>Mesh</td>
+                    <td>42.5</td>
+                    <td>44.2</td>
+                  </tr>
+                  <tr>
+                    <td>PQ3D</td>
+                    <td>PVCNN++</td>
+                    <td>Mesh</td>
+                    <td>44.1</td>
+                    <td>45.8</td>
+                  </tr>
+                  <tr>
+                    <td>3D-LLM</td>
+                    <td>CLIP-ViT-B</td>
+                    <td>Mesh</td>
+                    <td>40.2</td>
+                    <td>42.1</td>
+                  </tr>
+                  <tr>
+                    <td>NaviLLM</td>
+                    <td>CLIP-ViT-L</td>
+                    <td>Mesh</td>
+                    <td>43.8</td>
+                    <td>45.5</td>
+                  </tr>
+                  <tr style="background-color:#f0f0f0">
+                    <td>UniVLG-3D-only (Sensor PC)</td>
+                    <td>ViT-B</td>
+                    <td>Sensor</td>
+                    <td><b>46.2</b></td>
+                    <td><b>47.9</b></td>
+                  </tr>
+                  <tr style="background-color:#f0f0f0">
+                    <td>UniVLG (Sensor PC)</td>
+                    <td>ViT-B</td>
+                    <td>Sensor</td>
+                    <td><b>47.1</b></td>
+                    <td><b>48.5</b></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p><b>Table 3</b>: Performance on 3D Question Answering benchmarks (ScanQA, SQA3D). <b>UniVLG achieves state-of-the-art question answering performance.</b></p>
+          </div>
+        </div>
+
+        <div class="columns is-centered">
+          <div class="column is-full has-text-centered">
+            <h3 class="subtitle">Strong 2D Referential Grounding Performance</h3>
+            <div class="table-container" style="overflow-x: auto; margin-bottom: 20px;">
+              <table class="table is-bordered is-striped is-narrow is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th colspan="3">RefCOCO val</th>
+                    <th colspan="3">RefCOCO+ val</th>
+                    <th colspan="3">RefCOCOg val</th>
+                  </tr>
+                  <tr>
+                    <th></th>
+                    <th>IoU@0.5</th>
+                    <th>IoU@0.7</th>
+                    <th>IoU@0.9</th>
+                    <th>IoU@0.5</th>
+                    <th>IoU@0.7</th>
+                    <th>IoU@0.9</th>
+                    <th>IoU@0.5</th>
+                    <th>IoU@0.7</th>
+                    <th>IoU@0.9</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>MDETR</td>
+                    <td>83.5</td>
+                    <td>69.3</td>
+                    <td>43.9</td>
+                    <td>70.5</td>
+                    <td>51.8</td>
+                    <td>24.0</td>
+                    <td>67.4</td>
+                    <td>50.4</td>
+                    <td>27.6</td>
+                  </tr>
+                  <tr>
+                    <td>GLIP</td>
+                    <td>87.3</td>
+                    <td>73.9</td>
+                    <td>49.2</td>
+                    <td>75.8</td>
+                    <td>57.6</td>
+                    <td>29.3</td>
+                    <td>72.8</td>
+                    <td>56.0</td>
+                    <td>32.2</td>
+                  </tr>
+                  <tr>
+                    <td>Grounded-SAM</td>
+                    <td>88.1</td>
+                    <td>75.3</td>
+                    <td>51.1</td>
+                    <td>77.1</td>
+                    <td>59.7</td>
+                    <td>31.5</td>
+                    <td>74.2</td>
+                    <td>58.0</td>
+                    <td>34.5</td>
+                  </tr>
+                  <tr style="background-color:#f0f0f0">
+                    <td>UniVLG (2D only)</td>
+                    <td><b>88.5</b></td>
+                    <td><b>75.8</b></td>
+                    <td><b>51.8</b></td>
+                    <td><b>77.5</b></td>
+                    <td><b>60.2</b></td>
+                    <td><b>32.1</b></td>
+                    <td><b>74.5</b></td>
+                    <td><b>58.4</b></td>
+                    <td><b>34.9</b></td>
+                  </tr>
+                   <tr style="background-color:#f0f0f0">
+                    <td>UniVLG (2D-3D)</td>
+                    <td><b>88.3</b></td>
+                    <td><b>75.6</b></td>
+                    <td><b>51.6</b></td>
+                    <td><b>77.3</b></td>
+                    <td><b>60.0</b></td>
+                    <td><b>31.9</b></td>
+                    <td><b>74.3</b></td>
+                    <td><b>58.2</b></td>
+                    <td><b>34.7</b></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p><b>Table 4</b>: Performance on 2D Referential Grounding benchmarks (RefCOCO, RefCOCO+, RefCOCOg). <b>UniVLG maintains strong 2D performance even when co-trained with 3D data.</b></p>
+          </div>
+        </div>
+
+        <div class="columns is-centered">
+          <div class="column is-full has-text-centered">
+            <h3 class="subtitle">Mask Decoding is Superior to Box Decoding</h3>
+            <div class="table-container" style="overflow-x: auto; margin-bottom: 20px;">
+              <table class="table is-bordered is-striped is-narrow is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>Decoding Head</th>
+                    <th>SR3D@0.25</th>
+                    <th>SR3D@0.5</th>
+                    <th>SR3D@0.75</th>
+                    <th>NR3D@0.25</th>
+                    <th>NR3D@0.5</th>
+                    <th>NR3D@0.75</th>
+                    <th>ScanRefer@0.25</th>
+                    <th>ScanRefer@0.5</th>
+                    <th>ScanRefer@0.75</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="background-color:#f0f0f0">
+                    <td>Mask Decoding</td>
+                    <td><b>70.2</b></td>
+                    <td><b>56.8</b></td>
+                    <td><b>42.1</b></td>
+                    <td><b>66.3</b></td>
+                    <td><b>53.1</b></td>
+                    <td><b>39.6</b></td>
+                    <td><b>57.3</b></td>
+                    <td><b>43.2</b></td>
+                    <td><b>29.1</b></td>
+                  </tr>
+                  <tr>
+                    <td>Box Decoding</td>
+                    <td>65.1</td>
+                    <td>51.2</td>
+                    <td>35.3</td>
+                    <td>61.2</td>
+                    <td>47.1</td>
+                    <td>32.9</td>
+                    <td>52.4</td>
+                    <td>38.8</td>
+                    <td>24.9</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p><b>Table 5</b>: Ablation on decoding heads. Mask decoding significantly outperforms box decoding, especially at higher IoU thresholds.</p>
+          </div>
+        </div>
+
+        <div class="columns is-centered">
+          <div class="column is-full has-text-centered">
+            <h3 class="subtitle">2D-to-3D Lifting Improves 3D Performance with 2D Data</h3>
+            <div class="table-container" style="overflow-x: auto; margin-bottom: 20px;">
+              <table class="table is-bordered is-striped is-narrow is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>Training Data</th>
+                    <th>2D-to-3D Lifting</th>
+                    <th>SR3D@0.25</th>
+                    <th>SR3D@0.5</th>
+                    <th>SR3D@0.75</th>
+                    <th>NR3D@0.25</th>
+                    <th>NR3D@0.5</th>
+                    <th>NR3D@0.75</th>
+                    <th>ScanRefer@0.25</th>
+                    <th>ScanRefer@0.5</th>
+                    <th>ScanRefer@0.75</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="background-color:#f0f0f0">
+                    <td>3D Only</td>
+                    <td>-</td>
+                    <td>68.4</td>
+                    <td>55.1</td>
+                    <td>40.7</td>
+                    <td>64.5</td>
+                    <td>51.4</td>
+                    <td>38.2</td>
+                    <td>55.6</td>
+                    <td>41.6</td>
+                    <td>27.6</td>
+                  </tr>
+                  <tr>
+                    <td>2D+3D</td>
+                    <td>No Lifting</td>
+                    <td>69.1</td>
+                    <td>55.8</td>
+                    <td>41.2</td>
+                    <td>65.2</td>
+                    <td>52.0</td>
+                    <td>38.7</td>
+                    <td>56.4</td>
+                    <td>42.3</td>
+                    <td>28.2</td>
+                  </tr>
+                  <tr style="background-color:#f0f0f0">
+                    <td>2D+3D</td>
+                    <td>Yes Lifting</td>
+                    <td><b>70.2</b></td>
+                    <td><b>56.8</b></td>
+                    <td><b>42.1</b></td>
+                    <td><b>66.3</b></td>
+                    <td><b>53.1</b></td>
+                    <td><b>39.6</b></td>
+                    <td><b>57.3</b></td>
+                    <td><b>43.2</b></td>
+                    <td><b>29.1</b></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p><b>Table 6</b>: Ablation on 2D-to-3D lifting. Lifting 2D data to 3D pointmaps when co-training with 2D data further improves 3D performance.</p>
+          </div>
+        </div>
+
+        <div class="columns is-centered">
+          <div class="column is-full has-text-centered">
+            <h3 class="subtitle">Component Ablations</h3>
+            <div class="table-container" style="overflow-x: auto; margin-bottom: 20px;">
+              <table class="table is-bordered is-striped is-narrow is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>Ablation</th>
+                    <th>SR3D@0.25</th>
+                    <th>SR3D@0.5</th>
+                    <th>SR3D@0.75</th>
+                    <th>NR3D@0.25</th>
+                    <th>NR3D@0.5</th>
+                    <th>NR3D@0.75</th>
+                    <th>ScanRefer@0.25</th>
+                    <th>ScanRefer@0.5</th>
+                    <th>ScanRefer@0.75</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="background-color:#f0f0f0">
+                    <td>Full Model</td>
+                    <td><b>70.2</b></td>
+                    <td><b>56.8</b></td>
+                    <td><b>42.1</b></td>
+                    <td><b>66.3</b></td>
+                    <td><b>53.1</b></td>
+                    <td><b>39.6</b></td>
+                    <td><b>57.3</b></td>
+                    <td><b>43.2</b></td>
+                    <td><b>29.1</b></td>
+                  </tr>
+                  <tr>
+                    <td>w/o Box Loss</td>
+                    <td>67.5</td>
+                    <td>54.2</td>
+                    <td>39.8</td>
+                    <td>63.8</td>
+                    <td>50.5</td>
+                    <td>37.5</td>
+                    <td>54.9</td>
+                    <td>40.9</td>
+                    <td>27.2</td>
+                  </tr>
+                  <tr>
+                    <td>Box Decoding Head</td>
+                    <td>65.1</td>
+                    <td>51.2</td>
+                    <td>35.3</td>
+                    <td>61.2</td>
+                    <td>47.1</td>
+                    <td>32.9</td>
+                    <td>52.4</td>
+                    <td>38.8</td>
+                    <td>24.9</td>
+                  </tr>
+                  <tr>
+                    <td>w/o Visual Token Update</td>
+                    <td>58.3</td>
+                    <td>45.1</td>
+                    <td>30.2</td>
+                    <td>54.1</td>
+                    <td>41.0</td>
+                    <td>27.3</td>
+                    <td>46.5</td>
+                    <td>33.9</td>
+                    <td>21.8</td>
+                  </tr>
+                  <tr>
+                    <td>Random 2D Init</td>
+                    <td>52.1</td>
+                    <td>39.8</td>
+                    <td>26.3</td>
+                    <td>48.5</td>
+                    <td>36.1</td>
+                    <td>23.4</td>
+                    <td>41.2</td>
+                    <td>29.8</td>
+                    <td>18.6</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p><b>Table 7</b>: Component ablation study on 3D referential grounding. Each component of UniVLG contributes to the overall performance.</p>
+          </div>
+        </div> -->
+<!-- 
+        <div class="columns is-centered">
+          <div class="column is-full has-text-centered">
+            <h3 class="subtitle">Robustness to Sensor Noise</h3>
+            <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;">
+              <div>
+                <picture>
+                  <source srcset="static/images/pose_noise_experiment_v2.png" type="image/png">
+                  <img src="static/images/pose_noise_experiment_v2.webp" alt="Pose Noise Robustness" style="width: 100%;">
+                </picture>
+                <p style="text-align: center;">Pose Error Robustness</p>
+              </div>
+              <div>
+                <picture>
+                  <source srcset="static/images/depth_noise_experiment_v2.png" type="image/png">
+                  <img src="static/images/depth_noise_experiment_v2.webp" alt="Depth Noise Robustness" style="width: 100%;">
+                </picture>
+                <p style="text-align: center;">Depth Error Robustness</p>
+              </div>
+            </div>
+            <p><b>Figure 2</b>: Robustness of UniVLG to pose and depth sensor noise compared to BUTD-DETR. <b>UniVLG exhibits superior robustness.</b></p>
+          </div>
+        </div> -->
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- BibTeX Citation -->
+  <!-- <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@article{your_citation_key,
+      title={UniDisc: Unified Multimodal Discrete Diffusion},
+      author={First Author and Second Author and Third Author},
+      journal={Conference Name},
+      year={2023}
+      }</code></pre>
+        </div>
+    </section> -->
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+
+            <p>
+              This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page. This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+              Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- Good lazy loading with animation. For some reason, adding this conflicts with <picture> which is needed to optionally load webp images so for now we add the lazy load attribute (which should be removed when using the below code.) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Ensure that we wait for all images to be loaded before scrolling to hash
+        const images = document.querySelectorAll('img');
+
+        let imagesLoaded = 0;
+        const totalImages = images.length;
+
+        images.forEach((img) => {
+          if (img.complete) {
+            imagesLoaded++;
+          } else {
+            img.addEventListener('load', function() {
+              imagesLoaded++;
+              if (imagesLoaded === totalImages) {
+                scrollToHash();
+              }
+            });
+            img.addEventListener('error', function() {
+              imagesLoaded++;
+              if (imagesLoaded === totalImages) {
+                scrollToHash();
+              }
+            });
+          }
+        });
+
+        // If no images or all images are already loaded
+        if (totalImages === 0 || imagesLoaded === totalImages) {
+          scrollToHash();
+        }
+
+        function scrollToHash() {
+          const hash = window.location.hash;
+          if (hash) {
+            // Use setTimeout to ensure scroll happens after all content is visible
+            setTimeout(() => {
+              const target = document.querySelector(hash);
+              if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+              }
+            }, 100);
+          }
+        }
+      });
+
+    $(document).ready(function() {
+      $('a.anchor-link').on('click', function(e) {
+        e.preventDefault(); // Prevent the default anchor behavior
+
+        // Get the href attribute (e.g., "#abstract")
+        var anchor = $(this).attr('href');
+
+        // Construct the full URL with the anchor
+        var url = window.location.origin + window.location.pathname + anchor;
+
+        // Copy the URL to the clipboard using the Clipboard API
+        if (navigator.clipboard && window.isSecureContext) {
+          // navigator.clipboard API method
+          navigator.clipboard.writeText(url).then(function() {
+            // Success feedback: Change icon to checkmark
+            var $icon = $(e.currentTarget).find('i');
+            $icon.removeClass('fa-link').addClass('fa-check');
+
+            // Revert back to the original icon after 2 seconds
+            setTimeout(function() {
+              $icon.removeClass('fa-check').addClass('fa-link');
+            }, 2000);
+          }, function(err) {
+            console.error('Could not copy text: ', err);
+            alert('Failed to copy the link. Please try again.');
+          });
+        } else {
+          // Fallback method for older browsers
+          var textArea = document.createElement("textarea");
+          textArea.value = url;
+          // Make the textarea out of viewport
+          textArea.style.position = "fixed";
+          textArea.style.left = "-999999px";
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          try {
+            document.execCommand('copy');
+            // Success feedback: Change icon to checkmark
+            var $icon = $(e.currentTarget).find('i');
+            $icon.removeClass('fa-link').addClass('fa-check');
+
+            // Revert back to the original icon after 2 seconds
+            setTimeout(function() {
+              $icon.removeClass('fa-check').addClass('fa-link');
+            }, 2000);
+          } catch (err) {
+            console.error('Fallback: Oops, unable to copy', err);
+            alert('Failed to copy the link. Please try manually.');
+          }
+          document.body.removeChild(textArea);
+        }
+      });
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const images = document.querySelectorAll('img');
+
+      images.forEach(img => {
+        // Create container
+        const container = document.createElement('div');
+        container.className = 'progressive-image-container';
+        img.parentNode.insertBefore(container, img);
+
+        // Create placeholder
+        const placeholder = document.createElement('div');
+        placeholder.className = 'image-placeholder';
+        placeholder.innerHTML = '<div class="spinner"></div>';
+        container.appendChild(placeholder);
+
+        // Move image into container
+        container.appendChild(img);
+        img.className += ' progressive-image';
+
+        // Load image
+        const newImg = new Image();
+        newImg.src = img.src;
+        newImg.onload = function() {
+          img.classList.add('loaded');
+          placeholder.style.display = 'none';
+        };
+      });
+    });
+  </script>
+
+</body>
+</html>
