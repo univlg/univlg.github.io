@@ -287,11 +287,55 @@
               <!-- <source srcset="static/images/RODIN_Architecture_3.png" type="image/png"> -->
               <img src="static/images/grounding_2d_results.jpeg" alt="UniVLG Architecture">
             </picture>
-            <p style="padding-bottom: 30px;">Results on 3D language grounding. We evaluate top-1 accuracy on the official validation set.</p>
+            <p style="padding-bottom: 30px;">Results on 2D language grounding. </p>
           </div>
         </div>
       </div>
     </div>
+  </section>
+
+  <section class="hero is-small pt-6 pb-3" style="margin-top: -3.0rem;">
+    <div class="hero-body">
+      <div class="container">
+        <h2 id="architecture" class="title is-3 has-text-centered">
+          Jointly training with 2D data by lifting 2D data to 3D helps improve 3D performance. 
+          <a href="#architecture" class="anchor-link">
+            <i class="fas fa-link"></i>
+          </a>
+        </h2>
+        <div class="columns is-centered" style="padding-top: 20px;">
+          <div class="column is-one-third has-text-centered">
+            <picture>
+              <!-- <source srcset="static/images/RODIN_Architecture_3.png" type="image/png"> -->
+              <img src="static/images/joint_2d_3d.jpeg" alt="">
+            </picture>
+            <p style="padding-bottom: 30px;"> While our 3D-only model is already SOTA, training with additional 2D data further boosts performance. </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero is-small pt-6 pb-3" style="margin-top: -3.0rem;">
+    <div class="hero-body">
+      <div class="container">
+        <h2 id="architecture" class="title is-3 has-text-centered">
+          UniVLG's Mask Decoder head is key to strong performance.
+          <a href="#architecture" class="anchor-link">
+            <i class="fas fa-link"></i>
+          </a>
+        </h2>
+        <div class="columns is-centered" style="padding-top: 20px;">
+          <div class="column is-one-third has-text-centered">
+            <picture>
+              <source srcset="static/images/mask_decoder.jpeg" type="image/png">
+              <img src="static/images/mask_decoder.jpeg" alt="UniVLG Architecture">
+            </picture>
+            <p style="padding-bottom: 30px;">Espcially at higher IoU threshholds. For more detailed ablations on how we designed our mask decoder head, please check out our paper. </p>
+          </div>
+        </div>
+      </div>
+    </div> 
   </section>
 
   <!-- <section class="hero is-small pt-6 pb-3" style="margin-top: -3.0rem;">
