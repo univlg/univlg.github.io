@@ -100,7 +100,7 @@
     }
   </style>
 
-  <script src="https://ajax.googleapis.com/ajax.libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
   <script defer src="static/js/fontawesome.all.min.js"></script>
   <script src="static/js/bulma-carousel.min.js"></script>
@@ -117,7 +117,8 @@
         <div class="columns is-centered">
           <div class="column has-text-centered">
             <h1 class="title is-1 publication-title">UniVLG: Unifying 2D and 3D Vision-Language Understanding</h1>
-            
+          
+
             <div class="is-size-5 publication-authors">
               <span class="author-block">
                 <a href="https://ayushjain1144.github.io/">Ayush Jain</a><sup>*1,2</sup>,</span>
@@ -137,6 +138,16 @@
                 <a href="https://www.cs.cmu.edu/~katef/">Katerina Fragkiadaki</a><sup>1</sup></span>
 
               <span class="eql-cntrb"><small><br><sup>*</sup>Equal Contribution</small></span>
+            </div>
+
+
+                  <div class="columns is-centered is-vcentered" style="margin-top: 1rem;">
+              <div class="column is-narrow">
+                <img src="static/images/cmu_logo.png" alt="CMU Logo" style="height: 5em; margin-bottom: 0.5em;">
+              </div>
+              <div class="column is-narrow">
+                <img src="static/images/meta_logo.png" alt="Meta Logo" style="height: 5em; margin-bottom: 0.5em;">
+              </div>
             </div>
 
 
@@ -191,10 +202,9 @@
   </section>
 
   <!-- Teaser Image -->
-  <section class="hero teaser">
+  <!-- <section class="hero teaser">
     <div class="container is-max-desktop">
       <div class="hero-body">
-        <!-- <img src="static/images/joint_inpaint.webp" alt="Joint Inpainting"> -->
         <picture>
           <source srcset="static/images/teaser_ver_4.png" type="image/png">
           <img src="static/images/teaser_ver_4.webp" alt="UniVLG Teaser Figure">
@@ -203,6 +213,33 @@
         <div style="margin-top: 10px;">
           UniVLG achieves state-of-the-art performance in 3D vision-language understanding by unifying 2D and 3D visual processing and leveraging 2D pre-training.
         </div>
+        </h2>
+      </div>
+    </div>
+  </section> -->
+
+  <section class="hero teaser">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <!-- <h2 class="title is-3 has-text-centered" style="margin-bottom: 2rem;">
+          Demo Video
+          <a href="#demo_video" class="anchor-link">
+            <i class="fas fa-link"></i>
+          </a>
+        </h2>
+   -->
+        <div class="columns is-centered">
+          <div class="column is-five-sixths has-text-centered">
+            <video width="100%" controls loop muted autoplay style="border-radius: 12px;">
+              <source src="static/videos/teaser_video.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+        <h2 class="subtitle has-text-centered">
+          <div style="margin-top: 10px;">
+            UniVLG achieves state-of-the-art performance in 3D vision-language understanding by unifying 2D and 3D visual processing and leveraging 2D pre-training.
+          </div>
         </h2>
       </div>
     </div>
@@ -250,22 +287,41 @@
     </div>
   </section>
 
-  <section class="hero is-small pt-6 pb-3" style="margin-top: -3.0rem;">
+  <section class="hero is-small pt-6 pb-3">
     <div class="hero-body">
       <div class="container">
-        <h2 id="architecture" class="title is-3 has-text-centered">
-          UniVLG sets a new SOTA in 3D Vision-Language Understanding
-          <a href="#architecture" class="anchor-link">
-            <i class="fas fa-link"></i>
-          </a>
-        </h2>
-        <div class="columns is-centered" style="padding-top: 20px;">
-          <div class="column is-one-third has-text-centered">
-            <picture>
-              <!-- <source srcset="static/images/RODIN_Architecture_3.png" type="image/png"> -->
-              <img src="static/images/grounding_3d_results.jpeg" alt="UniVLG Architecture">
-            </picture>
-            <p style="padding-bottom: 30px;">Results on 3D language grounding. We evaluate top-1 accuracy on the official validation set.</p>
+        <div class="columns is-centered">
+          <div class="column is-half has-text-centered">
+            <h3 id="sota_3d_understanding" class="title is-3 has-text-centered">
+              UniVLG is SOTA in 3D Vision-Language Understanding
+              <a href="#sota_3d_understanding" class="anchor-link">
+                <i class="fas fa-link"></i>
+              </a>
+            </h3>
+            <div class="columns is-centered" style="padding-top: 20px;">
+              <div class="column is-three-quarters has-text-centered">
+                <picture>
+                  <img src="static/images/grounding_3d_results.jpeg" alt="UniVLG Architecture">
+                </picture>
+                <p style="padding-bottom: 30px;">Results on 3D language grounding. We evaluate top-1 accuracy on the official validation set.</p>
+              </div>
+            </div>
+          </div>
+          <div class="column is-half has-text-centered">
+            <h3 id="strong_2d_performance" class="title is-3 has-text-centered">
+              UniVLG achieves strong performance in 2D Vision-Language Understanding
+              <a href="#strong_2d_performance" class="anchor-link">
+                <i class="fas fa-link"></i>
+              </a>
+            </h3>
+            <div class="columns is-centered" style="padding-top: 20px;">
+              <div class="column is-three-quarters has-text-centered">
+                <picture>
+                  <img src="static/images/grounding_2d_results.jpeg" alt="UniVLG Architecture">
+                </picture>
+                <p style="padding-bottom: 30px;">Results on 2D language grounding. </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -275,19 +331,39 @@
   <section class="hero is-small pt-6 pb-3" style="margin-top: -3.0rem;">
     <div class="hero-body">
       <div class="container">
-        <h2 id="architecture" class="title is-3 has-text-centered">
-          UniVLG also achieves strong performance in 2D Vision-Language Understanding
-          <a href="#architecture" class="anchor-link">
-            <i class="fas fa-link"></i>
-          </a>
-        </h2>
-        <div class="columns is-centered" style="padding-top: 20px;">
-          <div class="column is-one-third has-text-centered">
-            <picture>
-              <!-- <source srcset="static/images/RODIN_Architecture_3.png" type="image/png"> -->
-              <img src="static/images/grounding_2d_results.jpeg" alt="UniVLG Architecture">
-            </picture>
-            <p style="padding-bottom: 30px;">Results on 2D language grounding. </p>
+        <div class="columns is-centered">
+          <div class="column is-half has-text-centered">
+            <h3 id="joint_training" class="title is-3 has-text-centered">
+              Jointly training with lifted 2D data helps improve 3D performance.
+              <a href="#joint_training" class="anchor-link">
+                <i class="fas fa-link"></i>
+              </a>
+            </h3>
+            <div class="columns is-centered" style="padding-top: 10px;">
+              <div class="column is-half has-text-centered">
+                <picture>
+                  <img src="static/images/joint_2d_3d.jpeg" alt="">
+                </picture>
+                <p style="padding-bottom: 30px;"> While our 3D-only model is already SOTA, training with additional 2D data further boosts performance. </p>
+              </div>
+            </div>
+          </div>
+          <div class="column is-half has-text-centered">
+            <h3 id="mask_decoder_head" class="title is-3 has-text-centered">
+              UniVLG's Mask Decoder head is key to strong performance.
+              <a href="#mask_decoder_head" class="anchor-link">
+                <i class="fas fa-link"></i>
+              </a>
+            </h3>
+            <div class="columns is-centered" style="padding-top: 20px;">
+              <div class="column is-three-quarters has-text-centered">
+                <picture>
+                  <source srcset="static/images/mask_decoder.jpeg" type="image/png">
+                  <img src="static/images/mask_decoder.jpeg" alt="UniVLG Architecture">
+                </picture>
+                <p style="padding-bottom: 30px;">Espcially at higher IoU threshholds. For more detailed ablations on how we designed our mask decoder head, please check out our paper. </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -297,58 +373,14 @@
   <section class="hero is-small pt-6 pb-3" style="margin-top: -3.0rem;">
     <div class="hero-body">
       <div class="container">
-        <h2 id="architecture" class="title is-3 has-text-centered">
-          Jointly training with 2D data by lifting 2D data to 3D helps improve 3D performance. 
-          <a href="#architecture" class="anchor-link">
-            <i class="fas fa-link"></i>
-          </a>
-        </h2>
-        <div class="columns is-centered" style="padding-top: 20px;">
-          <div class="column is-one-third has-text-centered">
-            <picture>
-              <!-- <source srcset="static/images/RODIN_Architecture_3.png" type="image/png"> -->
-              <img src="static/images/joint_2d_3d.jpeg" alt="">
-            </picture>
-            <p style="padding-bottom: 30px;"> While our 3D-only model is already SOTA, training with additional 2D data further boosts performance. </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="hero is-small pt-6 pb-3" style="margin-top: -3.0rem;">
-    <div class="hero-body">
-      <div class="container">
-        <h2 id="architecture" class="title is-3 has-text-centered">
-          UniVLG's Mask Decoder head is key to strong performance.
-          <a href="#architecture" class="anchor-link">
-            <i class="fas fa-link"></i>
-          </a>
-        </h2>
-        <div class="columns is-centered" style="padding-top: 20px;">
-          <div class="column is-one-third has-text-centered">
-            <picture>
-              <source srcset="static/images/mask_decoder.jpeg" type="image/png">
-              <img src="static/images/mask_decoder.jpeg" alt="UniVLG Architecture">
-            </picture>
-            <p style="padding-bottom: 30px;">Espcially at higher IoU threshholds. For more detailed ablations on how we designed our mask decoder head, please check out our paper. </p>
-          </div>
-        </div>
-      </div>
-    </div> 
-  </section>
-
-  <!-- <section class="hero is-small pt-6 pb-3" style="margin-top: -3.0rem;">
-    <div class="hero-body">
-      <div class="container">
-        <h2 id="architecture" class="title is-3 has-text-centered">
+        <h2 id="ablations" class="title is-3 has-text-centered">
           Ablations
-          <a href="#architecture" class="anchor-link">
+          <a href="#ablations" class="anchor-link">
             <i class="fas fa-link"></i>
           </a>
         </h2>
         <div class="columns is-centered" style="padding-top: 20px;">
-          <div class="column is-four-fifths has-text-centered">
+          <div class="column is-three-fifths has-text-centered">
             <picture>
               <img src="static/images/ablation_2d3d.png">
             </picture>
@@ -357,7 +389,7 @@
         </div>
       </div>
     </div>
-  </section> -->
+  </section>
 
   <section class="hero is-small pt-6 pb-3" style="margin-top: -3.0rem;">
     <div class="hero-body">
